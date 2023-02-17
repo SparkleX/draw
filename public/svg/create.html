@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script language="JavaScript">
+        function init() {
+
+        }
+        function create() {
+            var svg   = document.getElementById("svg");
+            var svgNS = "http://www.w3.org/2000/svg";
+            var rect = document.createElementNS(svgNS,'rect');
+            rect.setAttribute('id', 'idRect');
+            rect.setAttribute('x',5);
+            rect.setAttribute('y',5);
+            rect.setAttribute('width',500);
+            rect.setAttribute('height',500);
+            rect.setAttribute('fill','#95B3D7');
+            svg.appendChild(rect);
+        }
+        function update() {
+            var rect = document.getElementById('idRect');
+            var x = rect.getAttribute('x');
+            rect.setAttribute('x',parseInt(x) + 5);
+         
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <button onclick="create()">Create</button>
+    <button onclick="update()">Update</button>
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
+     </svg>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script language="JavaScript">
+
+        function init() {
+            var svg   = document.getElementById("svg");
+            var svgNS = "http://www.w3.org/2000/svg";
+            var rect = document.createElementNS(svgNS,'rect');
+            rect.setAttribute('id', 'idRect');
+            rect.setAttribute('x',5);
+            rect.setAttribute('y',5);
+            rect.setAttribute('width',300);
+            rect.setAttribute('height',100);
+            rect.setAttribute('fill','#95B3D7');
+            rect.setAttribute('onmousedown', "myonmousedown(event, this)");
+            rect.setAttribute('onmouseup', "myonmouseup(event, this)");
+            rect.setAttribute('onmousemove', "myonmousemove(event, this)");
+
+            
+            svg.appendChild(rect);
+        };
+        var x;
+        var y;
+        var mouseX;
+        var mouseY;
+        var capture = false;
+        function myonmousemove(event, self) {
+            console.info(`move = ${event.offsetX},${event.offsetY}`);
+            if (!capture) {
+                return;
+            }      
+            var newX = event.x - mouseX;
+            var newY = event.y - mouseY;
+            self.setAttribute('x',x + newX);
+            self.setAttribute('y',y + newY);
+        };
+        function myonmousedown(event, self) {
+            //self.setPointerCapture(event.pointerId);
+            console.info(`down = ${event.offsetX},${event.offsetY}`) 
+            x = parseInt(self.getAttribute("x"));
+            y = parseInt(self.getAttribute("y"));
+            console.info(`down = xy:${x},${y}`) 
+            mouseX = event.x;
+            mouseY = event.y;
+            capture = true;
+        };
+        function myonmouseup(event, self) {
+            console.info(`up = ${event.offsetX},${event.offsetY}`);
+            capture = false;      
+        };
+
+    </script>
+</head>
+
+<body onload="init()">
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="1000">
+     </svg>
+</body>
+
+</html>
