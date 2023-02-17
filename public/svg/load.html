@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script language="JavaScript">
+        async function load () {
+            let x =  await fetch("task.svg");
+            let xmlString = await x.text();
+            const parser = new DOMParser();
+            const doc1 = parser.parseFromString(xmlString, "application/xml");
+            const oSvg = document.getElementById("svg");
+            oSvg.appendChild(doc1.firstElementChild)
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="load()">Load</button>
+
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="1000">
+    </svg>
+</body>
+
+</html>
