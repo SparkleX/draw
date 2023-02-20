@@ -1,5 +1,6 @@
 <core:FragmentDefinition 
 	xmlns:core="sap.ui.core" 
-    xmlns="sap.m" displayBlock="true">
-    <Button text="1"/>
+    xmlns="sap.m"
+    xmlns:wf="b1.designer.control" displayBlock="true">
+    <wf:WorkflowDesigner/>
 </core:FragmentDefinition>
