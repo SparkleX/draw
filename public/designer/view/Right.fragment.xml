@@ -12,7 +12,10 @@
                 <f:FormElement label="Type">
                     <Label text="{/type}"/>
                 </f:FormElement>
-                <f:FormElement label="Business Object Object Type">
+                <f:FormElement label="Name" visible="{=${/type}==='task'}">
+                    <Input value="{/name}"></Input>
+                </f:FormElement>
+                <f:FormElement label="Business Object Object Type" visible="{=${/type}==='task'}">
                     <Select showSecondaryValues= "true">
                         <items>
                             <core:ListItem text="Sales Orders" additionalText="RDR"/>
@@ -23,6 +26,9 @@
                 </f:FormElement>
                 <f:FormElement label="Memo">
                     <TextArea value="..." rows="8" />
+                </f:FormElement>
+                <f:FormElement>
+                    <Button text="Save" press=".onPressSaveProps"/>
                 </f:FormElement>
             </f:FormContainer>
         </f:formContainers>

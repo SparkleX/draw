@@ -66,9 +66,16 @@ sap.ui.define([
     };
     theClass.prototype.addGateway = function () {
     };
-
+    theClass.prototype.findItemById = function (id) {
+        for (let item of this.oItems) {
+            if (item.id==id) {
+                return item;
+            }
+        }
+    };
     theClass.prototype._onMouseDown = function (event, self) {
-        this.fireSelectItem(self._data);
+        const item = this.findItemById(self.id);
+        this.fireSelectItem(item);
         //self.setPointerCapture(event.pointerId);
         console.info(`down = ${event.offsetX},${event.offsetY}`)
         x = parseInt(self.getAttribute("x"));
@@ -103,12 +110,12 @@ sap.ui.define([
     };
 
     theClass.prototype._onMouseUp= function (event, self) {
-        console.info(`up = ${event.offsetX},${event.offsetY}`);
+        //console.info(`up = ${event.offsetX},${event.offsetY}`);
         capture = false;
     };
 
     theClass.prototype._onMouseMove= function (event, self) {
-        console.info(`move = ${event.offsetX},${event.offsetY}`);
+        //console.info(`move = ${event.offsetX},${event.offsetY}`);
         if (!capture) {
             return;
         }

@@ -3,6 +3,7 @@
     </rect>-->
     <rect x = "10" y="10" width="180" height="100" fill="blue" stroke="blue">
     </rect>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{name}</text>
 
     <circle cx="189" cy="11" r="10" stroke="black" stroke-width="1" fill="red" />
 
