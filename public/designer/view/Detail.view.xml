@@ -1,5 +1,23 @@
 <mvc:View controllerName="b1.designer.controller.Detail"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:m="sap.m" displayBlock="true">
-	<m:Button/>
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core" 
+	xmlns="sap.m" displayBlock="true">
+	<layout:Splitter width="100%" height="100%">
+		<FlexBox renderType="Bare" width="100%" height="100%">
+			<layoutData>
+				<layout:SplitterLayoutData size="20rem" />
+			</layoutData>
+			<core:Fragment fragmentName="b1.designer.view.Left" type="XML" />
+		</FlexBox>
+		<FlexBox renderType="Bare" width="100%" height="100%">
+			<core:Fragment fragmentName="b1.designer.view.Center" type="XML" />
+		</FlexBox>
+		<FlexBox renderType="Bare" width="100%" height="100%">
+			<layoutData>
+				<layout:SplitterLayoutData size="20rem" />
+			</layoutData>
+			<core:Fragment fragmentName="b1.designer.view.Right" type="XML" />
+		</FlexBox>
+	</layout:Splitter>
 </mvc:View>
