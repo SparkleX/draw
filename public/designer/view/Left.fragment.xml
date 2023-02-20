@@ -13,11 +13,11 @@
                     <layout:GridData span="XL12 L12 M12 S12" />
                 </f:layoutData>
                 <f:FormElement >
-                    <Button width="8rem" text="Select" icon="sap-icon://cursor-arrow" />
-                    <Button width="8rem" text="Start" icon="sap-icon://SAP-icons-TNT/start-event" />
-                    <Button width="8rem" text="Task" icon="sap-icon://SAP-icons-TNT/task" />
-                    <Button width="8rem" text="End" icon="sap-icon://SAP-icons-TNT/end-event" />
-                    <Button width="8rem" text="Gateway" icon="sap-icon://SAP-icons-TNT/gateway" />
+                    <Button width="8rem" text="Select" press = ".onPressAddSelect" icon="sap-icon://cursor-arrow" />
+                    <Button width="8rem" text="Start"  press = ".onPressAddStart" icon="sap-icon://SAP-icons-TNT/start-event" />
+                    <Button width="8rem" text="Task"  press = ".onPressAddTask" icon="sap-icon://SAP-icons-TNT/task" />
+                    <Button width="8rem" text="End"  press = ".onPressAddEnd" icon="sap-icon://SAP-icons-TNT/end-event" />
+                    <Button width="8rem" text="Gateway"  press = ".onPressAddGateway" icon="sap-icon://SAP-icons-TNT/gateway" />
                 </f:FormElement>
             </f:FormContainer>
         </f:formContainers>
