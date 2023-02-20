@@ -1,0 +1,5 @@
+<mvc:View controllerName="b1.designer.controller.Detail"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:m="sap.m" displayBlock="true">
+	<m:Button/>
+</mvc:View>

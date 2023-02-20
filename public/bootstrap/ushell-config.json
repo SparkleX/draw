@@ -1,0 +1,92 @@
+{
+	"defaultRenderer": "fiori2",
+	"bootstrapPlugins": {},
+	"renderers": {
+		"fiori2": {
+			"componentData": {
+				"config": {
+					"enableActionModeMenuButton": true,
+					"enableMergeAppAndShellHeaders": false,
+					"search": "hidden"
+				}
+			}
+		}
+	},
+	"services": {
+		"LaunchPage": {
+			"module": "sap.ushell.services.LaunchPage",
+			"adapter": {
+				"module": "sap.ushell.adapters.local.LaunchPageAdapter",
+				"config": {
+					"groups": [
+						{
+							"id": "tRMcQ7ybgajUSHs6ppKtmE",
+							"title": "My Home",
+							"tiles": [
+								{
+									"id": "2YWaf1PMf2Pn3fmwivA9h6",
+									"title": "Process Designer",
+									"tileType": "sap.ushell.ui.tile.StaticTile",
+									"properties": {
+										"title": "Process Designer",
+										"info": "",
+										"targetURL": "#TEST-app",
+										"icon": "sap-icon://multi-select"
+									}
+								}
+							]
+						}
+					],
+					"catalogs": [
+						{
+							"id": "group_1",
+							"title": "TEST",
+							"tiles": [
+								{
+									"id": "tile07",
+									"title": "Process Designer",
+									"tileType": "sap.ushell.ui.tile.StaticTile",
+									"properties": {
+										"chipId": "sap_ushell_generated_chip_id",
+										"title": "Process Designer",
+										"targetURL": "#TEST-app",
+										"icon": "sap-icon://multi-select"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		},
+		"NavTargetResolution": {
+			"adapter": {
+				"config": {
+					"applications": {
+						"TEST-app": {
+							"additionalInformation": "SAPUI5.Component=b1.designer",
+							"applicationType": "URL",
+							"url": "designer",
+							"description": "Process Designer",
+							"title": "Process Designer"
+						}
+					}
+				}
+			}
+		},
+		"Container": {
+			"module": "sap.ushell.services.Container",
+			"adapter": {
+				"module": "sap.ushell.adapters.local.ContainerAdapter",
+				"config": {}
+			}
+		},
+		"AllMyApps": {
+			"config": {
+				"enabled": true,
+				"showHomePageApps": false,
+				"showCatalogApps": true
+			}
+		}
+	}
+}
