@@ -31,7 +31,7 @@ sap.ui.define([
 
             const str1=`xmlns="http://www.w3.org/2000/svg"`;
 
-            const str2=`xmlns="http://www.w3.org/2000/svg" {attr} onmousedown="onMouseDown(event, this)" onmouseup="onMouseUp(event, this)" onmousemove="onMouseMove(event, this)"`;
+            const str2=`xmlns="http://www.w3.org/2000/svg" {attr} onmousedown="onMouseDown(event, this)" onmouseup="onMouseUp(event, this)" onmousemove="onMouseMove(event, this)" onmouseleave="onMouseLeave(event, this)"`;
 
             xmlString = xmlString.replace(str1, str2);
 
@@ -113,7 +113,10 @@ sap.ui.define([
         //console.info(`up = ${event.offsetX},${event.offsetY}`);
         capture = false;
     };
-
+    theClass.prototype._onMouseLeave= function (event, self) {
+        //console.info(`up = ${event.offsetX},${event.offsetY}`);
+        capture = false;
+    };
     theClass.prototype._onMouseMove= function (event, self) {
         //console.info(`move = ${event.offsetX},${event.offsetY}`);
         if (!capture) {
@@ -186,8 +189,16 @@ sap.ui.define([
         const oControl = getUI5Control(self);
         oControl._onMouseMove(event, self)
     };
+
+    function onMouseLeave(event, self) {
+        const oControl = getUI5Control(self);
+        oControl._onMouseLeave(event, self)
+    };
+
     window.onMouseMove=onMouseMove;
     window.onMouseDown=onMouseDown;
     window.onMouseUp=onMouseUp;
+    window.onMouseLeave=onMouseLeave;
+
     return theClass;
 });
