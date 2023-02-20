@@ -15,6 +15,7 @@ function(BaseClass, JSONModel) {
 
 		const data = [
 			{
+				id: "idStart",
 				type:"start",
 				x: 100,
 				y: 100,

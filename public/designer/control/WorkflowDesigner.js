@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/ui/core/Control"
-], function (BaseClass) {
+    "sap/ui/core/Control",
+    "sap/base/util/uid"
+], function (BaseClass, uid) {
     "use strict";
     const theClass = BaseClass.extend("b1.designer.control.WorkflowDesigner", {
         metadata: {
@@ -19,6 +20,25 @@ sap.ui.define([
             }
         }
     });
+
+    theClass._init = async function () {
+        theClass.oSvgTemplate = {};
+        const types = ["start","task","end"];
+        for (let type of types) {
+            let filename = `designer/control/images/${type}.svg`;
+            let x = await fetch(filename);
+            let xmlString = await x.text();
+
+            const str1=`xmlns="http://www.w3.org/2000/svg"`;
+
+            const str2=`xmlns="http://www.w3.org/2000/svg" {attr} onmousedown="onMouseDown(event, this)" onmouseup="onMouseUp(event, this)" onmousemove="onMouseMove(event, this)"`;
+
+            xmlString = xmlString.replace(str1, str2);
+
+            theClass.oSvgTemplate[type] = xmlString;
+        }
+    };
+
 
     theClass.prototype.init = async function () {
         BaseClass.prototype.init.call(this);
@@ -95,21 +115,29 @@ sap.ui.define([
         var newX = event.x - mouseX;
         var newY = event.y - mouseY;
         var rate = this.getScaleRate();
-        self.setAttribute('x', x + rate * newX);
-        self.setAttribute('y', y + rate * newY);
+        //self.setAttribute('x', x + rate * newX);
+        //self.setAttribute('y', y + rate * newY);
+        const id = self.id;
+        for (let item of this.oItems) {
+            if (item.id!=id) {
+                continue;
+            }
+            item.x = x + rate * newX;
+            item.y = y + rate * newY;
+            break;
+        }
+        this.invalidate();
     };
-
-
-
-
-    function registEvent(item) {
-        item.setAttribute('onmousedown', "onMouseDown(event, this)");
-        item.setAttribute('onmouseup', "onMouseUp(event, this)");
-        item.setAttribute('onmousemove', "onMouseMove(event, this)");
-    }
-
     theClass.prototype.add = async function(type) {
-        let filename = `designer/control/images/${type}.svg`;
+        const item = {
+            id: uid(),
+            type: type,
+            x: 100,
+            y: 100
+        }
+        this.oItems.push(item);
+        this.invalidate();
+       /* let filename = `designer/control/images/${type}.svg`;
         let x = await fetch(filename);
         let xmlString = await x.text();
         const parser = new DOMParser();
@@ -119,10 +147,20 @@ sap.ui.define([
         child._ui5 = this;
         child._data = {type: type}
         registEvent(child);
-        const child2 = oSvg.appendChild(child);
+        const child2 = oSvg.appendChild(child);*/
         //console.debug(child2.id);
     }
 
+/*
+
+    function registEvent(item) {
+        item.setAttribute('onmousedown', "onMouseDown(event, this)");
+        item.setAttribute('onmouseup', "onMouseUp(event, this)");
+        item.setAttribute('onmousemove', "onMouseMove(event, this)");
+    }
+
+
+*/
 
     function getUI5Control(self) {
         const oControl = sap.ui.getCore().byId(self.parentNode.parentNode.id);

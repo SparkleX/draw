@@ -19,14 +19,7 @@ sap.ui.define([
 		};
 		IconPool.registerFont(t);
 
-		WorkflowDesigner.oSvgTemplate = {};
-        const types = ["start","task","end"];
-        for (let type of types) {
-            let filename = `designer/control/images/${type}.svg`;
-            let x = await fetch(filename);
-            let xmlString = await x.text();
-            WorkflowDesigner.oSvgTemplate[type] = xmlString;
-        }
+		await WorkflowDesigner._init();
 		this.getRouter().initialize();
 
 	};

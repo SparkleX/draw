@@ -23,7 +23,8 @@ sap.ui.define([
 			oRm.write(`<svg id="svg" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="1000">`);
 			const items = oControl.getItems();
 			for (let item of items) {
-				const xml = WorkflowDesigner.oSvgTemplate[item.type];
+				let xml = WorkflowDesigner.oSvgTemplate[item.type];
+				xml = xml.replace("{attr}", `id="${item.id}" x="${item.x}" y="${item.y}"`);
 				oRm.write(xml);
 			}
 			oRm.write(`</svg>`);
