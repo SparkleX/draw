@@ -1,5 +1,7 @@
-sap.ui.define([],
-	function() {
+sap.ui.define([
+	"b1/designer/control/WorkflowDesigner"
+],
+	function(WorkflowDesigner) {
 		"use strict";
 		const theClass = {};
 
@@ -17,9 +19,14 @@ sap.ui.define([],
 				case 0: size = 1000;break;
 				case -1: size = 2000;break;
 				case -2: size = 4000;break;
-
 			}
-			oRm.write(`<svg id="svg" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="1000"></svg>`);
+			oRm.write(`<svg id="svg" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="1000">`);
+			const items = oControl.getItems();
+			for (let item of items) {
+				const xml = WorkflowDesigner.oSvgTemplate[item.type];
+				oRm.write(xml);
+			}
+			oRm.write(`</svg>`);
 			oRm.write("</div>");
 		};
 

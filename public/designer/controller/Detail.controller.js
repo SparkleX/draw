@@ -12,6 +12,25 @@ function(BaseClass, JSONModel) {
 		this.oData = {type:"Empty"};
 		this.oJsonModel = new JSONModel(this.oData);
 		this.oView.setModel(this.oJsonModel);
+
+		const data = [
+			{
+				type:"start",
+				x: 100,
+				y: 100,
+			},
+			{
+				type: "task",
+				x: 200,
+				y: 100
+			},{
+				type: "end",
+				x: 200,
+				y: 100
+			}
+        ];
+        this.oWfDesginer.setItems(data);
+        console.debug("123");
 	};
 
 	theClass.prototype.onPressAddSelect = function() {

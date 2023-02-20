@@ -20,8 +20,15 @@ sap.ui.define([
         }
     });
 
-    theClass.prototype.init = function () {
+    theClass.prototype.init = async function () {
         BaseClass.prototype.init.call(this);
+
+    };
+    theClass.prototype.setItems = function (val) {
+        this.oItems = val;
+    };
+    theClass.prototype.getItems = function () {
+        return this.oItems;
     };
     theClass.prototype.setScale = function (val) {
         this.setProperty("scale", val);
