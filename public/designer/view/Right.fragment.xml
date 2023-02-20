@@ -10,7 +10,7 @@
         <f:formContainers>
             <f:FormContainer>
                 <f:FormElement label="Type">
-                    <Label text="Task"/>
+                    <Label text="{/type}"/>
                 </f:FormElement>
                 <f:FormElement label="Business Object Object Type">
                     <Select showSecondaryValues= "true">

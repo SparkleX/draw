@@ -6,10 +6,11 @@ sap.ui.define([
         metadata: {
             properties: {
                 value: { type: "string", group: "Data", defaultValue: null, bindable: "bindable" },
-                editable: { type: "boolean", group: "Behavior", defaultValue: true }
+                editable: { type: "boolean", group: "Behavior", defaultValue: true },
+                scale: { type: "int", group: "Behavior", defaultValue: 0 }
             },
             events: {
-                change: {
+                selectItem: {
                     parameters: {
                         value: { type: "string" },
                         oldValue: { type: "string" }
@@ -22,6 +23,11 @@ sap.ui.define([
     theClass.prototype.init = function () {
         BaseClass.prototype.init.call(this);
     };
+    theClass.prototype.setScale = function (val) {
+        this.setProperty("scale", val);
+    };
+
+    
     theClass.prototype.addStart = function () {
         this.add("start");
     };
@@ -34,25 +40,8 @@ sap.ui.define([
     theClass.prototype.addGateway = function () {
     };
 
-
-
-    var x;
-    var y;
-    var mouseX;
-    var mouseY;
-    var capture = false;
-
-    function onMouseMove(event, self) {
-        console.info(`move = ${event.offsetX},${event.offsetY}`);
-        if (!capture) {
-            return;
-        }
-        var newX = event.x - mouseX;
-        var newY = event.y - mouseY;
-        self.setAttribute('x', x + newX);
-        self.setAttribute('y', y + newY);
-    };
-    function onMouseDown(event, self) {
+    theClass.prototype._onMouseDown = function (event, self) {
+        this.fireSelectItem(self._data);
         //self.setPointerCapture(event.pointerId);
         console.info(`down = ${event.offsetX},${event.offsetY}`)
         x = parseInt(self.getAttribute("x"));
@@ -68,10 +57,43 @@ sap.ui.define([
         mouseY = event.y;
         capture = true;
     };
-    function onMouseUp(event, self) {
+
+    var x;
+    var y;
+    var mouseX;
+    var mouseY;
+    var capture = false;
+
+    theClass.prototype.getScaleRate= function () {
+        const scale = this.getScale();
+        switch(scale) {
+            case -2: return 4;
+            case -1: return 2;
+            case 0: return 1;
+            case 1: return 0.5;
+            case 2: return 0.25;
+        }
+    };
+
+    theClass.prototype._onMouseUp= function (event, self) {
         console.info(`up = ${event.offsetX},${event.offsetY}`);
         capture = false;
     };
+
+    theClass.prototype._onMouseMove= function (event, self) {
+        console.info(`move = ${event.offsetX},${event.offsetY}`);
+        if (!capture) {
+            return;
+        }
+        var newX = event.x - mouseX;
+        var newY = event.y - mouseY;
+        var rate = this.getScaleRate();
+        self.setAttribute('x', x + rate * newX);
+        self.setAttribute('y', y + rate * newY);
+    };
+
+
+
 
     function registEvent(item) {
         item.setAttribute('onmousedown', "onMouseDown(event, this)");
@@ -79,19 +101,32 @@ sap.ui.define([
         item.setAttribute('onmousemove', "onMouseMove(event, this)");
     }
 
-    theClass.prototype.add = async function(file) {
-        let filename = `designer/control/images/${file}.svg`;
+    theClass.prototype.add = async function(type) {
+        let filename = `designer/control/images/${type}.svg`;
         let x = await fetch(filename);
         let xmlString = await x.text();
         const parser = new DOMParser();
         const doc1 = parser.parseFromString(xmlString, "application/xml");
         const oSvg = document.getElementById("svg");
-        const child = doc1.firstElementChild
+        const child = doc1.firstElementChild;
+        child._ui5 = this;
+        child._data = {type: type}
         registEvent(child);
-        oSvg.appendChild(child);
+        const child2 = oSvg.appendChild(child);
+        //console.debug(child2.id);
     }
 
+    function onMouseUp(event, self) {
+        self._ui5._onMouseUp(event, self)
+    };
 
+    function onMouseDown(event, self) {
+        self._ui5._onMouseDown(event, self)
+
+    };
+    function onMouseMove(event, self) {
+        self._ui5._onMouseMove(event, self)
+    };
     window.onMouseMove=onMouseMove;
     window.onMouseDown=onMouseDown;
     window.onMouseUp=onMouseUp;
