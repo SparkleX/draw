@@ -18,7 +18,7 @@ function(BaseClass, JSONModel) {
 				type:"start",
 				x: 100,
 				y: 100,
-			},
+			}/*,
 			{
 				type: "task",
 				x: 200,
@@ -27,7 +27,7 @@ function(BaseClass, JSONModel) {
 				type: "end",
 				x: 200,
 				y: 100
-			}
+			}*/
         ];
         this.oWfDesginer.setItems(data);
         console.debug("123");

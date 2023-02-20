@@ -123,16 +123,23 @@ sap.ui.define([
         //console.debug(child2.id);
     }
 
+
+    function getUI5Control(self) {
+        const oControl = sap.ui.getCore().byId(self.parentNode.parentNode.id);
+        return oControl;
+    }
     function onMouseUp(event, self) {
-        self._ui5._onMouseUp(event, self)
+        const oControl = getUI5Control(self);
+        oControl._onMouseUp(event, self)
     };
 
     function onMouseDown(event, self) {
-        self._ui5._onMouseDown(event, self)
-
+        const oControl = getUI5Control(self);
+        oControl._onMouseDown(event, self)
     };
     function onMouseMove(event, self) {
-        self._ui5._onMouseMove(event, self)
+        const oControl = getUI5Control(self);
+        oControl._onMouseMove(event, self)
     };
     window.onMouseMove=onMouseMove;
     window.onMouseDown=onMouseDown;
